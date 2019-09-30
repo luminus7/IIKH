@@ -27,3 +27,36 @@ bool Date::init(int year, int month, int day)
 	this->day = day;
 	return true;
 }
+
+Date Date::getTomorrow() {
+    Date tomorrow = *this;
+    int days[12] = {
+        31,28,31,30,31,30,31,31,30,31,30,31
+    };
+
+    if (this->year % 400 == 0 || this->year % 100 != 0 && this->year % 4 == 0) {
+        days[1] = 29;
+    }
+
+    if (this->day == 31 && this->month == 12) {
+        tomorrow.day = 1;
+        tomorrow.month = 1;
+        tomorrow.year = this->year + 1;
+    }
+    else if (this->day == days[this->month - 1]) {
+        tomorrow.day = 1;
+        tomorrow.month = this->month + 1;
+        tomorrow.year = this->year;
+    }
+    else {
+        tomorrow.day = this->day + 1;
+        tomorrow.month = this->month;
+        tomorrow.year = this->year;
+    }
+
+    return tomorrow;
+}
+
+bool Date::compareTime(Date& date) {
+    return (this->year == date.getYear() && this->month == date.getMonth() && this->day == date.getDay());
+}

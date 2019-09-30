@@ -17,4 +17,6 @@ public:
 	Meal getBreakfast() { return breakfast; }
 	Meal getLunch() { return lunch; }
 	Meal getDinner() { return dinner; }
+    Date getTomorrow();
+    bool compareTime(Date& date);
 };
