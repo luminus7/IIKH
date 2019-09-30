@@ -15,9 +15,9 @@ private:
 	const string seperator = "**************************";
 	RecipeDatabase rdb;
 	void printRecipe(Recipe r);
+
 public:
 	int showRecipeList();
 	void showRecipeAddForm();
 	void showRecipeEditForm();
-
 };
