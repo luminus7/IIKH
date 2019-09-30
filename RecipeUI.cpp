@@ -46,6 +46,16 @@ int RecipeUI::showRecipeList()
 			int targetRecipe;
 			cin >> targetRecipe;
 			if(targetRecipe == 0) return -1;
+			if(targetRecipe > searchBucket.size())
+			{
+				while(targetRecipe > searchBucket.size())
+				{
+					cout << "Number should be lower then " << searchBucket.size() << endl;
+					cout << "Which Recipe do you want to choose? (0 to Exit) : ";
+					cin >> targetRecipe;
+					if(targetRecipe == 0) return -1;
+				}
+			}
             cin.ignore(INT_MAX, '\n');
             printRecipe(searchBucket[i - 1]);
             cout << "Enter to Continue : " << endl;
