@@ -1,11 +1,11 @@
-
 #include "RecipeUI.h"
+#include "PlannerUI.h"
 
 int main(void)
 {
 	RecipeDatabase rdb;
 	RecipeUI rui(rdb);
-	//PlannerUI pui;
+	PlannerUI pui(rdb);
 	const string seperator = "*****************";
 	
 	while(1)
@@ -45,7 +45,7 @@ int main(void)
 				break;
 			case 4:
 				system("cls");
-				//pui.showPlannerForm();
+				pui.showPlannerForm();
 				break;
 		}
 	}
