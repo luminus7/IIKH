@@ -1,18 +1,35 @@
 #include "RecipeUI.h"
+#include "RecipeDatabase.h"
 
 class RecipeUI
 {
-	private:
-		const string seperator ="**************************";
-		RecipeDatabase rdb;
-		
-	public:
-		void showRecipeList();
-		void showRecipeAddForm();
-		void showRecipeEditForm();
+private:
+	const string seperator = "**************************";
+	RecipeDatabase rdb;
+	void printRecipe(Recipe r);
+public:
+	void showRecipeList();
+	void showRecipeAddForm();
+	void showRecipeEditForm();
 	
-
+	RecipeUI()
+	{
+		
+	}
 };
+
+void RecipeUI::printRecipe(Recipe r)
+{
+	cout << seperator << endl;
+	cout << "Selected Recipe" << endl;
+	cout << seperator << endl;
+
+	cout << "Name : " r.getName() << endl;
+	cout << "Expected Cooking Time : " + r.getDuration() << endl;
+	cout << "How to Cook : " << endl;
+	cout << r.getDescription();
+	
+}
 
 void RecipeUI::showRecipeList()
 {
@@ -27,13 +44,13 @@ void RecipeUI::showRecipeList()
 	{
 		for(int i = 0; i < searchBucket.size(); i++)
 		{
-			cout << i + ". " + searchBucket[i].getName() << endl;
+			cout << (i+1) + ". " + searchBucket[i].getName() << endl;
 		}
 		cout << seperator << endl;
 		cout << "To exit, input 0" << endl;
 		cout << "Keyword Search : ";
 		string tempSearchSave;
-		getline(tempSearchSave, 100);
+		getline(cin, tempSearchSave);
 		if(tempSearchSave == "0") return;
 		
 		stringstream tempSearchStream(tempSearchSave);
@@ -81,8 +98,35 @@ void RecipeUI::showRecipeAddForm()
 	rdb.addRecipe(new Recipe(name, result, recipeDescription, tempDuration));
 }
 
-int main(void)
+void RecipeUI::showRecipeEditForm()
 {
-	
+	cout << seperator << endl;
+	cout << "Recipe Edit" << endl;
+	cout << seperator << endl;
 
+	vector<Recipe> allRecipeList = rdb.getRecipeList();
+	for(int i=0; i<allRecipeList.size();i++)
+	{
+		cout << (i+1) + ". " + allRecipeList[i].getName << endl;
+	}
+	
+	cout << "Select Number for Edit (0 to Exit) : ";
+	int recipeNumber;
+	cin >> recipeNumber;
+	cin.ignore();
+	Recipe targetRecipe = rdb.getRecipe(recipeNumber);
+	printRecipe(targetRecipe);
+	
+	cout << "Do you really want to Delete / Recreate this (1 to Continue) : ";
+	int tempCheck;
+	cin >> tempCheck;
+	if (tempCheck != 1) return;
+	if(rdb.removeRecipe(targetRecipe.getID()))
+	{
+		cout << "Removed Successfully, continue to Add? (1 to Continue) : " << endl;
+		cin >> tempCheck;
+		if (tempCheck != 1) return;
+		showRecipeAddForm();
+	}
+	else cout <<"양운천 잘못임 제 잘못 아님";
 }
