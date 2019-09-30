@@ -22,4 +22,8 @@ public:
 	int showRecipeList();
 	void showRecipeAddForm();
 	void showRecipeEditForm();
+	
+RecipeUI::RecipeUI(RecipeDatabase rdb) : rdb(rdb) {
+
+}
 };

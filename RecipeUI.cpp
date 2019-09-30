@@ -60,7 +60,7 @@ int RecipeUI::showRecipeList()
 	    vector<string> results(tempSearchIter, token);
 		
 		searchString = results;
-		rdb.searchRecipes(results);
+		searchBucket = rdb.searchRecipes(results);
 		system("cls");
 	}
 	
@@ -146,8 +146,4 @@ void RecipeUI::showRecipeEditForm()
 		showRecipeAddForm();
 	}
 	else cout <<"양운천 잘못임 제 잘못 아님";
-}
-
-RecipeUI::RecipeUI(RecipeDatabase rdb) : rdb(rdb) {
-
 }
