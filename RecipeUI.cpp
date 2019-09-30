@@ -97,8 +97,15 @@ void RecipeUI::showRecipeAddForm()
         if (tempIngName == "0")
             break;
 
-        cout << "Enter Ingredient #" << idx << " amount : ";
-        cin >> tempIngAmount;
+		while (true)
+		{
+			cout << "Enter Ingredient #" << idx << " amount : ";
+			cin >> tempIngAmount;
+			if (!cin.fail())
+				break;
+			cin.clear();
+			cin.ignore();
+		}
 
         Ingredient tempIng;
         tempIng.setName(tempIngName);
@@ -117,11 +124,18 @@ void RecipeUI::showRecipeAddForm()
 		cout << "Enter Descriptions (Enter to Exit): ";
 		getline(cin, tempDescriptionSave);
 		recipeDescription += tempDescriptionSave + "\n";
-	} 
-	cout << "Enter Duration : ";
+	}
 	int tempDuration;
-	cin >> tempDuration;
-    cin.ignore(INT_MAX, '\n');
+	while (true)
+	{
+		cout << "Enter Duration : ";
+		cin >> tempDuration;
+		if (!cin.fail())
+			break;
+		cin.clear();
+		cin.ignore();
+	}
+	cin.ignore(INT_MAX, '\n');
 	rdb.addRecipe(name, ingredients, recipeDescription, tempDuration);
 }
 
