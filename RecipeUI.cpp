@@ -54,7 +54,7 @@ int RecipeUI::showRecipeList()
             printRecipe(searchBucket[i - 1]);
             cout << "Enter to Continue : " << endl;
             string dummy;
-            cin >> dummy;
+            getline(dummy, 100);
             return searchBucket[i - 1].getId();
 		}
 		
@@ -65,7 +65,7 @@ int RecipeUI::showRecipeList()
 		
 		searchString = results;
 		rdb.searchRecipes(results);
-		
+		system("cls");
 	}
 	
 }
