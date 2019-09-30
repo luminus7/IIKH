@@ -15,10 +15,8 @@ bool Date::init(int year, int month, int day)
 		else if (year % 100 == 0) if (day > 28) return false;
 		else if (year % 4 == 0) if (day > 29) return false;
 	}
-	else {
-		this->year = year;
-		this->month = month;
-		this->day = day;
-		return true;
-	}
+	this->year = year;
+	this->month = month;
+	this->day = day;
+	return true;
 }
