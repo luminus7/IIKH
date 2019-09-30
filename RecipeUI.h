@@ -7,6 +7,8 @@
 #include <iterator>
 #include "Recipe.h"
 #include "RecipeDatabase.h"
+#include <climits>
+
 using namespace std;
 
 class RecipeUI
@@ -17,7 +19,6 @@ private:
 	void printRecipe(Recipe r);
 
 public:
-    RecipeUI(RecipeDatabase rdb);
 	int showRecipeList();
 	void showRecipeAddForm();
 	void showRecipeEditForm();

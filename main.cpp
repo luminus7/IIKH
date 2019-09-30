@@ -1,4 +1,4 @@
-#pragma once
+
 #include "RecipeUI.h"
 
 int main(void)

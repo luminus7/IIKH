@@ -1,7 +1,4 @@
 #include "RecipeUI.h"
-#include "Recipe.h"
-#include "RecipeDatabase.h"
-#include <climits>
 using namespace std;
 
 void RecipeUI::printRecipe(Recipe r)
@@ -26,15 +23,14 @@ void RecipeUI::printRecipe(Recipe r)
 int RecipeUI::showRecipeList()
 {
 	vector<string> searchString;
-	
-	cout << seperator << endl;
-	cout << "Recipe List" << endl;
-	cout << seperator << endl;
-	
     vector<Recipe> searchBucket = rdb.getRecipesList();
 	while(1)
 	{
-        int i = 0;
+		cout << seperator << endl;
+		cout << "Recipe List" << endl;
+		cout << seperator << endl;
+    
+	    int i = 0;
 		for(i = 0; i < searchBucket.size(); i++)
 		{
 			cout << (i+1) << ". " << searchBucket[i].getName() << endl;
@@ -54,7 +50,7 @@ int RecipeUI::showRecipeList()
             printRecipe(searchBucket[i - 1]);
             cout << "Enter to Continue : " << endl;
             string dummy;
-            getline(dummy, 100);
+            getline(cin, dummy);
             return searchBucket[i - 1].getId();
 		}
 		
