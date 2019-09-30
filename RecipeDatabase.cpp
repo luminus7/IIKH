@@ -73,6 +73,7 @@ vector<Recipe> RecipeDatabase::searchRecipes(
 		if (it == recipes.end())
 			break;
 		results.emplace_back(*it);
+		++it;
 	}
 
 	return results;
