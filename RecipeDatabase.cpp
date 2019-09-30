@@ -1,4 +1,4 @@
-#include "RecipeDatabase.hpp"
+#include "RecipeDatabase.h"
 #include <cassert>
 
 using namespace std;
@@ -6,14 +6,14 @@ using namespace std;
 std::vector<Recipe>::iterator RecipeDatabase::_findRecipe(int id)
 {
 	return find(recipes.begin(), recipes.end(),
-		[](auto recipe) { return recipe.getId() == id});
+		[id](auto recipe) { return recipe.getId() == id; });
 }
 
 void RecipeDatabase::addRecipe(const string& name,
 	const std::vector<Ingredient>& ingreds,
 	const string& desc, int duration)
 {
-	Recipe recipe(id++);
+	Recipe recipe(auto_inc_id++);
 
 	recipe.setName(name);
 	for (const auto& ingred : ingreds)

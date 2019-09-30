@@ -1,16 +1,34 @@
 #pragma once
-#include <vector>
-#include <string>
-using namespace std;
 
-class RecipeDatabase {
-private:
-    vector<Recipe> recipesList;
+#include <string>
+#include <vector>
+#include "Recipe.h"
+
+class RecipeDatabase
+{
+protected:
+	std::vector<Recipe> recipes;
+	int auto_inc_id = 0;
+
+	std::vector<Recipe>::iterator _findRecipe(int id);
 
 public:
-    void addRecipe(Recipe recipe);
-    Recipe getRecipe(int id);
-    bool removeRecipe(int id);
-    vector<Recipe> getRecipesList();
-    vector<Recipe> searchRecipes(vector<string> keywords);
+	RecipeDatabase() = default;
+	RecipeDatabase(const RecipeDatabase&) = default;
+	RecipeDatabase(RecipeDatabase&&) = default;
+	RecipeDatabase(std::initializer_list<Recipe> list)
+		: recipes(list) {}
+	RecipeDatabase(const std::vector<Recipe>& val) : recipes(val) {}
+	RecipeDatabase(std::vector<Recipe>&& val) : recipes(std::move(val)) {}
+	RecipeDatabase& operator=(const RecipeDatabase&) = default;
+	RecipeDatabase& operator=(RecipeDatabase&&) = default;
+
+	void addRecipe(const string& name,
+		const std::vector<Ingredient>& ingreds,
+		const string& desc, int duration);
+	bool removeRecipe(int id);
+	Recipe getRecipe(int id);
+	std::vector<Recipe> getRecipesList();
+	std::vector<Recipe> searchRecipes(
+		const std::vector<std::string>& keywords);
 };
