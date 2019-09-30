@@ -1,11 +1,12 @@
 #include "RecipeDatabase.h"
 #include <cassert>
+#include <algorithm>
 
 using namespace std;
 
 std::vector<Recipe>::iterator RecipeDatabase::_findRecipe(int id)
 {
-	return find(recipes.begin(), recipes.end(),
+	return find_if(recipes.begin(), recipes.end(),
 		[id](auto recipe) { return recipe.getId() == id; });
 }
 
