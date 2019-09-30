@@ -1,9 +1,12 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
 #include <sstream>
 #include <iterator>
+#include "Recipe.h"
+#include "RecipeDatabase.h"
 using namespace std;
 
 class RecipeUI

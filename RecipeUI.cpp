@@ -58,7 +58,7 @@ int RecipeUI::showRecipeList()
 			cin >> targetRecipe;
 			if(targetRecipe == 0) return -1;
 			cin.ignore();
-			return targetRecipe;
+			return searchBucket[i-1].getId;
 		}
 		
 		stringstream tempSearchStream(tempSearchSave);
@@ -103,7 +103,7 @@ void RecipeUI::showRecipeAddForm()
 	int tempDuration;
 	cin >> tempDuration;
 	cin.ignore();
-	rdb.addRecipe(new Recipe(name, result, recipeDescription, tempDuration));
+	rdb.addRecipe(name, result, recipeDescription, tempDuration);
 }
 
 void RecipeUI::showRecipeEditForm()
@@ -112,7 +112,7 @@ void RecipeUI::showRecipeEditForm()
 	cout << "Recipe Edit" << endl;
 	cout << seperator << endl;
 
-	vector<Recipe> allRecipeList = rdb.getRecipeList();
+	vector<Recipe> allRecipeList = rdb.getRecipesList();
 	for(int i=0; i<allRecipeList.size();i++)
 	{
 		cout << (i+1) + ". " + allRecipeList[i].getName << endl;
@@ -129,7 +129,7 @@ void RecipeUI::showRecipeEditForm()
 	int tempCheck;
 	cin >> tempCheck;
 	if (tempCheck != 1) return;
-	if(rdb.removeRecipe(targetRecipe.getID()))
+	if(rdb.removeRecipe(targetRecipe.getId()))
 	{
 		cout << "Removed Successfully, continue to Add? (1 to Continue) : " << endl;
 		cin >> tempCheck;
