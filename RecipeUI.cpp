@@ -15,7 +15,7 @@ void RecipeUI::printRecipe(Recipe r)
 	cout << "Ingredients List : " << endl;
 	for(int i=0; i<r.getIngredient().size(); i++)
 	{
-		cout << i+1 << ". " << r.getIngredient()[i].getName << " : " << r.getIngredient().getAmount << endl;
+		cout << i+1 << ". " << r.getIngredient()[i].getName() << " : " << r.getIngredient()[i].getAmount() << endl;
 	}
 	cout << endl;
 	cout << "How to Cook : " << endl;
@@ -52,6 +52,9 @@ int RecipeUI::showRecipeList()
 			if(targetRecipe == 0) return -1;
             cin.ignore(INT_MAX, '\n');
             printRecipe(searchBucket[i - 1]);
+            cout << "Enter to Continue : " << endl;
+            string dummy;
+            cin >> dummy;
             return searchBucket[i - 1].getId();
 		}
 		
