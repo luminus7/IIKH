@@ -4,14 +4,14 @@
 
 using namespace std;
 
-std::vector<Recipe>::iterator RecipeDatabase::_findRecipe(int id)
+vector<Recipe>::iterator RecipeDatabase::_findRecipe(int id)
 {
 	return find_if(recipes.begin(), recipes.end(),
 		[id](auto recipe) { return recipe.getId() == id; });
 }
 
 void RecipeDatabase::addRecipe(const string& name,
-	const std::vector<Ingredient>& ingreds,
+	const vector<Ingredient>& ingreds,
 	const string& desc, int duration)
 {
 	Recipe recipe(auto_inc_id++);
@@ -34,7 +34,6 @@ bool RecipeDatabase::removeRecipe(int id)
 	return true;
 }
 
-// id must valid.
 Recipe RecipeDatabase::getRecipe(int id)
 {
 	auto it = _findRecipe(id);
@@ -42,14 +41,39 @@ Recipe RecipeDatabase::getRecipe(int id)
 	return *it;
 }
 
-std::vector<Recipe> RecipeDatabase::getRecipesList()
+vector<Recipe> RecipeDatabase::getRecipesList()
 {
 	return recipes;
 }
 
-// Currently developing...
-std::vector<Recipe> RecipeDatabase::searchRecipes(
-	const std::vector<std::string>& keywords)
+vector<Recipe> RecipeDatabase::searchRecipes(
+	const vector<string>& keywords)
 {
-	return recipes;
+	vector<Recipe>::iterator it = recipes.begin();
+	vector<Recipe> results;
+
+	while (true)
+	{
+		it = find_if(it, recipes.end(), [&keywords](auto recipe) {
+			const auto& name = recipe.getName();
+			const auto& ingreds = recipe.getIngredient();
+
+			for (const auto& k : keywords)
+			{
+				if (name.find(k) != string::npos)
+					return true;
+				if (find_if(ingreds.begin(), ingreds.end(), [&k](auto ingred) {
+					return ingred.getName().find(k) != string::npos;
+				}) != ingreds.end())
+					return true;
+			}
+
+			return false;
+		});
+		if (it == recipes.end())
+			break;
+		results.emplace_back(*it);
+	}
+
+	return results;
 }
