@@ -85,6 +85,11 @@ void RecipeUI::showRecipeAddForm()
 	string name;
     cin >> name;
 
+	if(name == "EasterEgg")
+	{
+		system("cls");
+		easteregg();
+	}
     vector<Ingredient> ingredients;
 
     for (int idx = 1; ; idx++) {
@@ -170,4 +175,14 @@ void RecipeUI::showRecipeEditForm()
 		showRecipeAddForm();
 	}
 	else cout <<"양운천 잘못임 제 잘못 아님";
+}
+
+
+void RecipeUI::easteregg()
+{
+	cout << "Recipe UI / Main Menu Formatting : KZRT(방석현)" << endl;
+	cout << "Planner UI / Debugging : njw1204(나종우)" << endl; 
+	cout << "Recipe Database / Searching Engine : UCYang(양운천)" << endl;
+	cout << "Date / Escape Master : robinjoo1015(주영석)" << endl;
+	cout << "Report / Presentation : Joohee_Cho(조주희)" << endl;
 }

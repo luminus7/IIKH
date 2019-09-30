@@ -17,13 +17,14 @@ private:
 	const string seperator = "**************************";
 	RecipeDatabase rdb;
 	void printRecipe(Recipe r);
+	void easteregg();
 
 public:
 	int showRecipeList();
 	void showRecipeAddForm();
 	void showRecipeEditForm();
 	
-RecipeUI::RecipeUI(RecipeDatabase rdb) : rdb(rdb) {
+RecipeUI(RecipeDatabase rdb) : rdb(rdb) {
 
 }
 };
