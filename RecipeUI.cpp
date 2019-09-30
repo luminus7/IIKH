@@ -1,4 +1,5 @@
 #include "RecipeUI.h"
+#include "Recipe.h"
 #include "RecipeDatabase.h"
 #include <climits>
 using namespace std;
@@ -11,6 +12,12 @@ void RecipeUI::printRecipe(Recipe r)
 
 	cout << "Name : " << r.getName() << endl;
 	cout << "Expected Cooking Time : " << r.getDuration() << endl;
+	cout << "Ingredients List : " << endl;
+	for(int i=0; i<r.getIngredient().size(); i++)
+	{
+		cout << i+1 << ". " << r.getIngredient()[i].getName << " : " << r.getIngredient().getAmount << endl;
+	}
+	cout << endl;
 	cout << "How to Cook : " << endl;
 	cout << r.getDescription();
 	

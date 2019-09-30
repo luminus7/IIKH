@@ -5,10 +5,12 @@ int main(void)
 {
 	RecipeDatabase rdb;
 	RecipeUI rui(rdb);
+	//PlannerUI pui;
 	const string seperator = "*****************";
 	
 	while(1)
 	{
+		system("cls");
 		cout << seperator << endl;
 		cout << "Main Menu" << endl;
 		cout << seperator << endl;
@@ -25,19 +27,26 @@ int main(void)
 		cin >> selector;
 		cin.ignore(INT_MAX, '\n');
 	
-		switch(seletor)
+		switch(selector)
 		{
 			case 0:
 				return 0;
 			case 1:
+				system("cls");
 				rui.showRecipeList();
 				break;
 			case 2:
+				system("cls");
 				rui.showRecipeAddForm();
 				break;
 			case 3:
+				system("cls");
 				rui.showRecipeEditForm();
-				break;		
+				break;
+			case 4:
+				system("cls");
+				//pui.showPlannerForm();
+				break;
 		}
 	}
 
