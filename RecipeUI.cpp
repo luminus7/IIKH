@@ -1,11 +1,4 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <sstream>
-#include <iterator>
-
-using namespace std;
+#include "RecipeUI.h"
 
 class RecipeUI
 {
@@ -18,15 +11,13 @@ class RecipeUI
 		void showRecipeAddForm();
 		void showRecipeEditForm();
 	
-	RecipeUI()
-	{
-	}
+
 };
 
 void RecipeUI::showRecipeList()
 {
 	vector<string> searchString;
-
+	
 	cout << seperator << endl;
 	cout << "Recipe List" << endl;
 	cout << seperator << endl;
