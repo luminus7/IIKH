@@ -10,7 +10,7 @@ void RecipeUI::printRecipe(Recipe r)
 	cout << seperator << endl;
 
 	cout << "Name : " << r.getName() << endl;
-	cout << "Expected Cooking Time : " + r.getDuration() << endl;
+	cout << "Expected Cooking Time : " << r.getDuration() << endl;
 	cout << "How to Cook : " << endl;
 	cout << r.getDescription();
 	
@@ -24,13 +24,13 @@ int RecipeUI::showRecipeList()
 	cout << "Recipe List" << endl;
 	cout << seperator << endl;
 	
-    vector<Recipe> searchBucket = vector<Recipe>(); // rdb.getRecipesList();
+    vector<Recipe> searchBucket = rdb.getRecipesList();
 	while(1)
 	{
         int i = 0;
 		for(i = 0; i < searchBucket.size(); i++)
 		{
-			cout << (i+1) + ". " + searchBucket[i].getName() << endl;
+			cout << (i+1) << ". " << searchBucket[i].getName() << endl;
 		}
 		cout << seperator << endl;
 		cout << "To stop Search, input 0" << endl;
@@ -44,7 +44,8 @@ int RecipeUI::showRecipeList()
 			cin >> targetRecipe;
 			if(targetRecipe == 0) return -1;
             cin.ignore(INT_MAX, '\n');
-			return searchBucket[i-1].getId();
+            printRecipe(searchBucket[i - 1]);
+            return searchBucket[i - 1].getId();
 		}
 		
 		stringstream tempSearchStream(tempSearchSave);
@@ -53,7 +54,7 @@ int RecipeUI::showRecipeList()
 	    vector<string> results(tempSearchIter, token);
 		
 		searchString = results;
-		// rdb.searchRecipes(results);
+		rdb.searchRecipes(results);
 		
 	}
 	
@@ -105,7 +106,7 @@ void RecipeUI::showRecipeAddForm()
 	int tempDuration;
 	cin >> tempDuration;
     cin.ignore(INT_MAX, '\n');
-	// rdb.addRecipe(name, ingredients, recipeDescription, tempDuration);
+	rdb.addRecipe(name, ingredients, recipeDescription, tempDuration);
 }
 
 void RecipeUI::showRecipeEditForm()
@@ -114,25 +115,24 @@ void RecipeUI::showRecipeEditForm()
 	cout << "Recipe Edit" << endl;
 	cout << seperator << endl;
 
-    vector<Recipe> allRecipeList = vector<Recipe>(); // rdb.getRecipesList();
+    vector<Recipe> allRecipeList = rdb.getRecipesList();
 	for(int i=0; i<allRecipeList.size();i++)
 	{
-		cout << (i+1) + ". " + allRecipeList[i].getName() << endl;
+		cout << (i+1) << ". " << allRecipeList[i].getName() << endl;
 	}
 	
 	cout << "Select Number for Edit (0 to Exit) : ";
 	int recipeNumber;
 	cin >> recipeNumber;
     cin.ignore(INT_MAX, '\n');
-    Recipe targetRecipe = Recipe(1);
+    Recipe targetRecipe = allRecipeList[recipeNumber - 1];
 	printRecipe(targetRecipe);
 	
 	cout << "Do you really want to Delete / Recreate this (1 to Continue) : ";
 	int tempCheck;
 	cin >> tempCheck;
 	if (tempCheck != 1) return;
-	// if(rdb.removeRecipe(targetRecipe.getId()))
-    if (true)
+	if (rdb.removeRecipe(targetRecipe.getId()))
 	{
 		cout << "Removed Successfully, continue to Add? (1 to Continue) : " << endl;
 		cin >> tempCheck;
@@ -142,8 +142,6 @@ void RecipeUI::showRecipeEditForm()
 	else cout <<"양운천 잘못임 제 잘못 아님";
 }
 
-int main() {
-    RecipeUI ui = RecipeUI();
-    ui.showRecipeAddForm();
-    return 0;
+RecipeUI::RecipeUI(RecipeDatabase rdb) : rdb(rdb) {
+
 }

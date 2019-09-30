@@ -17,6 +17,7 @@ private:
 	void printRecipe(Recipe r);
 
 public:
+    RecipeUI(RecipeDatabase rdb);
 	int showRecipeList();
 	void showRecipeAddForm();
 	void showRecipeEditForm();
