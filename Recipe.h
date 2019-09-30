@@ -28,6 +28,9 @@ public:
 	int getDuration() {
 		return duration;
 	}
+	vector<Ingredient> getIngredient() {
+		return ingredientList;
+	}
 	void setName(string name) {
 		this->name = name;
 	}
