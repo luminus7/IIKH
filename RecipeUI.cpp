@@ -26,7 +26,7 @@ class RecipeUI
 void RecipeUI::showRecipeList()
 {
 	vector<string> searchString;
-	
+
 	cout << seperator << endl;
 	cout << "Recipe List" << endl;
 	cout << seperator << endl;
