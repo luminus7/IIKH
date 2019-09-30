@@ -7,7 +7,7 @@ using namespace std;
 void Plan::printPlan()
 {
 	vector<Ingredient> shoppingList;
-	for (Date d : plan) {
+	for (Date d : dates) {
 		int btime = 0, ltime = 0, dtime = 0;
 		Meal breakfast = d.getBreakfast(), lunch = d.getLunch(), dinner = d.getDinner();
 		cout << d.getYear() << '/' << d.getMonth() << '/' << d.getDay() << '\n' << '\n';
@@ -80,7 +80,7 @@ void Plan::writePlanToFile(string filename)
 	vector<Ingredient> shoppingList;
 	ofstream file;
 	file.open((filename + ".txt").c_str());
-	for (Date d : plan) {
+	for (Date d : dates) {
 		int btime = 0, ltime = 0, dtime = 0;
 		Meal breakfast = d.getBreakfast(), lunch = d.getLunch(), dinner = d.getDinner();
 		file << d.getYear() << '/' << d.getMonth() << '/' << d.getDay() << '\n' << '\n';

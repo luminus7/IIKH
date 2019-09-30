@@ -14,17 +14,16 @@ using namespace std;
 class RecipeUI
 {
 private:
-	const string seperator = "**************************";
-	RecipeDatabase rdb;
-	void printRecipe(Recipe r);
-	void easteregg();
+    const string seperator = "**************************";
+    RecipeDatabase& rdb;
+    void printRecipe(Recipe r);
+    void easteregg();
 
 public:
-	int showRecipeList();
-	void showRecipeAddForm();
-	void showRecipeEditForm();
-	
-RecipeUI(RecipeDatabase rdb) : rdb(rdb) {
+    int showRecipeList();
+    void showRecipeAddForm();
+    void showRecipeEditForm();
+    RecipeUI(RecipeDatabase& rdb) : rdb(rdb) {
 
-}
+    }
 };

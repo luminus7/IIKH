@@ -2,48 +2,59 @@
 #include "RecipeUI.h"
 #include "RecipeDatabase.h"
 #include "Date.h"
+#include "Plan.h"
+#include "util.h"
 #include <climits>
 using namespace std;
 
 
 void PlannerUI::showPlannerForm()
 {
+    if (rdb.getRecipesList().empty())
+    {
+        cout << endl;
+        cout << " You don't have any recipes!" << endl;
+        cout << " Please add some recipes to the database." << endl;
+        cout << endl;
+        cout << " Press Enter to Continue... ";
+        waitEnter();
+        return;
+    }
+
     RecipeUI rui = RecipeUI(rdb);
-    cout << "[Let's make Plan]" << endl;
+    cout << "####################" << endl;
+    cout << "#                  #" << endl;
+    cout << "#   Meal Planner   #" << endl;
+    cout << "#                  #" << endl;
+    cout << "####################" << endl;
 
-    int year, month, day;
-    Date startDate, endDate;
+    Plan plan;
+    vector<Date>& dates = plan.getDates();
 
-    do
+    for (int i = 1; ; i++)
     {
-        cout << "Starting Date (YYYY mm dd) : ";
-        cin >> year >> month >> day;    
-    } while (!startDate.init(year, month, day));
+        int year, month, day;
+        Date date;
 
-    do
-    {
-        cout << "End Date (YYYY mm dd) : ";
-        cin >> year >> month >> day;
-    } while (!endDate.init(year, month, day));
+        cout << endl;
+        cout << "****************************************" << endl;
+        cout << endl;
+        cout << "[No." << i << "]" << endl;
+        cout << "Date (yyyy mm dd) (Input -1 to exit) : ";
+        cin >> year;
 
-    Date nowDate = startDate;
-    bool breakFor = false;
-
-    for (int i = 1; !breakFor; i++)
-    {
-        if (nowDate.compareTime(endDate) == true)
+        if (year == -1)
         {
-            breakFor = true;
+            break;
         }
-
-        cin.ignore(INT_MAX, '\n');
-        cout << endl << "[" << nowDate.getYear() << "/" << nowDate.getMonth() << "/" << nowDate.getDay() << "]" << endl;
-    
-        while (true) {
-            int selected = rui.showRecipeList();
-            if (selected == -1) break;
-            Recipe recipe = rdb.getRecipe(selected);
-            nowDate = nowDate.getTomorrow();
+        
+        cin >> month >> day;
+        
+        if (!date.init(year, month, day))
+        {
+            cout << "Invalid Date! Please write again." << endl;
+            i--;
+            continue;
         }
     }
 }
