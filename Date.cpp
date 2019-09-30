@@ -11,9 +11,15 @@ bool Date::init(int year, int month, int day)
 		if (day > 30) return false;
 	}
 	else if (month == 2) {
-		if (year % 400 == 0) if (day > 29) return false;
-		else if (year % 100 == 0) if (day > 28) return false;
-		else if (year % 4 == 0) if (day > 29) return false;
+        if (year % 400 == 0) {
+            if (day > 29) return false;
+        }
+        else if (year % 100 == 0) {
+            if (day > 28) return false;
+        }
+        else if (year % 4 == 0) {
+            if (day > 29) return false;
+        }
 		else if (day > 28) return false;
 	}
 	this->year = year;
