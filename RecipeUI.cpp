@@ -8,7 +8,7 @@ private:
 	RecipeDatabase rdb;
 	void printRecipe(Recipe r);
 public:
-	void showRecipeList();
+	int showRecipeList();
 	void showRecipeAddForm();
 	void showRecipeEditForm();
 	
@@ -31,7 +31,7 @@ void RecipeUI::printRecipe(Recipe r)
 	
 }
 
-void RecipeUI::showRecipeList()
+int RecipeUI::showRecipeList()
 {
 	vector<string> searchString;
 	
@@ -40,18 +40,26 @@ void RecipeUI::showRecipeList()
 	cout << seperator << endl;
 	
 	vector<Recipe> searchBucket = rdb.getRecipesList();
-	while(1);
+	while(1)
 	{
 		for(int i = 0; i < searchBucket.size(); i++)
 		{
 			cout << (i+1) + ". " + searchBucket[i].getName() << endl;
 		}
 		cout << seperator << endl;
-		cout << "To exit, input 0" << endl;
+		cout << "To stop Search, input 0" << endl;
 		cout << "Keyword Search : ";
 		string tempSearchSave;
 		getline(cin, tempSearchSave);
-		if(tempSearchSave == "0") return;
+		if(tempSearchSave == "0")
+		{
+			cout << "Which Recipe do you want to choose? (0 to Exit) : ";
+			int targetRecipe;
+			cin >> targetRecipe;
+			if(targetRecipe == 0) return -1;
+			cin.ignore();
+			return targetRecipe;
+		}
 		
 		stringstream tempSearchStream(tempSearchSave);
 		istream_iterator<string> tempSearchIter(tempSearchStream);

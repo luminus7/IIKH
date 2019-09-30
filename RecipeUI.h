@@ -8,14 +8,13 @@ using namespace std;
 
 class RecipeUI
 {
-	private:
-		const string seperator ="**************************";
-		RecipeDatabase rdb;
-		
-	public:
-		void showRecipeList();
-		void showRecipeAddForm();
-		void showRecipeEditForm();
-	
+private:
+	const string seperator = "**************************";
+	RecipeDatabase rdb;
+	void printRecipe(Recipe r);
+public:
+	int showRecipeList();
+	void showRecipeAddForm();
+	void showRecipeEditForm();
 
 };
