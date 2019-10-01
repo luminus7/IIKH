@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -19,4 +20,24 @@ public:
 	void setAmount(int amount) {
 		this->amount = amount;
 	}
+	bool readFile(istream& in) {
+        string token;
+
+        if (in.peek() == '\n') {
+            in.ignore();
+            return false;
+        }
+
+        getline(in, name, ';');
+        getline(in, token, ';');
+        amount = stoi(token);
+
+        return true;
+    }
+	bool writeFile(ostream& out) {
+        out << name << ';'
+            << amount << ';';
+
+        return true;
+    }
 };

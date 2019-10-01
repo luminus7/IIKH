@@ -80,18 +80,45 @@ vector<Recipe> RecipeDatabase::searchRecipes(
     return results;
 }
 
-bool RecipeDatabase::loadFile(const string& fileName)
-{
-    ifstream file;
-    file.open(fileName);
 
-    if (file.is_open())
-    {
-        file.close();
-        return true;
-    }
-    else
-    {
+bool RecipeDatabase::readFile(const string& filename)
+{
+    ifstream fin(filename);
+    Recipe recipe;
+    string s;
+
+    if (!fin.is_open())
         return false;
-    }
+
+    getline(fin, s);
+    if (s != "Prof. BongBong")
+        return false;
+    getline(fin, s);
+    auto_inc_id = stoi(s);
+    
+    while (recipe.readFile(fin))
+        recipes.emplace_back(recipe);
+
+    fin.close();
+
+    return true;
+}
+
+bool RecipeDatabase::writeFile(const string& filename)
+{
+    ofstream fout(filename);
+
+    if (!fout.is_open())
+        return false;
+
+    fout << "Prof. BongBong" << '\n';
+    fout << auto_inc_id << '\n';
+
+	for (auto& recipe: recipes)
+		if (!recipe.writeFile(fout))
+			return false;
+
+    fout.close();
+
+    return true;
 }

@@ -27,9 +27,13 @@ public:
         const std::vector<Ingredient>& ingreds,
         const string& desc, int duration);
     bool removeRecipe(int id);
+
     Recipe getRecipe(int id);
     std::vector<Recipe> getRecipesList();
+
     std::vector<Recipe> searchRecipes(
         const std::vector<std::string>& keywords);
-    bool loadFile(const string& fileName);
+
+    bool readFile(const string& filename);
+    bool writeFile(const string& filename);
 };
