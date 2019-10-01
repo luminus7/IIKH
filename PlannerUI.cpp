@@ -36,7 +36,8 @@ void PlannerUI::showPlannerForm()
         cout << " ######################" << endl;
         cout << endl;
 
-        cout << " (Input 0 to save & print a file)" << endl;
+        cout << " (Input 0 to print & save a file)" << endl;
+        cout << " (Input -1 to quit)" << endl;
 
         for (int j = 1; j < i; j++) {
             cout << endl;
@@ -53,6 +54,11 @@ void PlannerUI::showPlannerForm()
         cout << " [Day " << i << "]" << endl;
         cout << " Date (yyyy mm dd) : ";
         cin >> year;
+
+        if (year == -1)
+        {
+            return;
+        }
 
         if (year == 0)
         {
