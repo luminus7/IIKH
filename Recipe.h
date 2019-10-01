@@ -7,12 +7,13 @@ using namespace std;
 class Recipe {
 private:
 	int id;
-	vector<Ingredient> ingredientList;
+	int duration;
 	string name;
 	string description;
-	int duration;
+	vector<Ingredient> ingredientList;
 
 public:
+	Recipe() {}
 	Recipe(int id) { this->id = id; }
 	void addIngredient(Ingredient ingredient);
 	bool removeIngredient(string name);
@@ -41,4 +42,6 @@ public:
 	void setDuration(int duration) {
 		this->duration = duration;
 	}
+	bool readFile(istream& in);
+	bool writeFile(ostream& out);
 };

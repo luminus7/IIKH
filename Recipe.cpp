@@ -60,3 +60,38 @@ void Recipe::printRecipe()
 
     cout << endl << endl;
 }
+
+bool Recipe::readFile(istream& in)
+{
+	string line, token;
+	Ingredient ingred;
+
+	if (in.eof())
+		return false;
+
+	getline(in, token, ';');
+	id = stoi(token);
+	getline(in, token, ';');
+	id = stoi(token);
+	getline(in, name, ';');
+	getline(in, description, ';');
+	getline(in, name, ';');
+	while (ingred.readFile(in))
+		ingredientList.emplace_back(ingred);
+
+	return true;
+}
+
+bool Recipe::writeFile(ostream& out)
+{
+	out << id << ';'
+		<< duration << ';'
+		<< name << ';'
+		<< description << ';';
+
+	for (auto& ingred : ingredientList)
+		if (!ingred.writeFile(out))
+			return false;
+
+	return true;
+}
