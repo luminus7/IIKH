@@ -38,8 +38,8 @@ void PlannerUI::showPlannerForm()
         for (int j = 1; j < i; j++) {
             cout << endl;
             cout << endl;
-            cout << " [No." << j << "]" << endl;
-            cout << " " << dates.back().toString() << " Saved." << endl;;
+            cout << " [Day " << j << "]" << endl;
+            cout << " " << dates[j - 1].toString() << " Saved." << endl;;
         }
 
         int year, month, day;

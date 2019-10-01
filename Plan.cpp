@@ -19,7 +19,7 @@ void Plan::printPlan()
 				cout << " -" << i.getName() << " " << i.getAmount()*breakfast.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount());
+					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
 					inshoppinglist = true;
 				}
 				if (!inshoppinglist) shoppingList.push_back(i);
@@ -38,7 +38,7 @@ void Plan::printPlan()
 				cout << " -" << i.getName() << " " << i.getAmount()*lunch.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount());
+					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * lunch.getPeople());
 					inshoppinglist = true;
 				}
 				if (!inshoppinglist) shoppingList.push_back(i);
@@ -54,10 +54,10 @@ void Plan::printPlan()
 			cout << '<' << r.getName() << '>' << '\n';
 			cout << "Ingredients" << '\n';
 			for (Ingredient i : r.getIngredient()) {
-				cout << " -" << i.getName() << " " << i.getAmount()*dinner.getPeople() << "g" << '\n';
+				cout << " -" << i.getName() << " " << i.getAmount() * dinner.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount());
+					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * dinner.getPeople());
 					inshoppinglist = true;
 				}
 				if (!inshoppinglist) shoppingList.push_back(i);
@@ -92,7 +92,7 @@ void Plan::writePlanToFile(string filename)
 				file << " -" << i.getName() << " " << i.getAmount()*breakfast.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount());
+					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
 					inshoppinglist = true;
 				}
 				if (!inshoppinglist) shoppingList.push_back(i);
@@ -111,7 +111,7 @@ void Plan::writePlanToFile(string filename)
 				file << " -" << i.getName() << " " << i.getAmount()*lunch.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount());
+					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * lunch.getPeople());
 					inshoppinglist = true;
 				}
 				if (!inshoppinglist) shoppingList.push_back(i);
@@ -130,7 +130,7 @@ void Plan::writePlanToFile(string filename)
 				file << " -" << i.getName() << " " << i.getAmount()*dinner.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount());
+					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * dinner.getPeople());
 					inshoppinglist = true;
 				}
 				if (!inshoppinglist) shoppingList.push_back(i);
@@ -145,6 +145,6 @@ void Plan::writePlanToFile(string filename)
 	}
 	file << '\n';
 	file << "*******SHOPPING LIST*******" << '\n';
-	for (Ingredient i : shoppingList) cout << i.getName() << " " << i.getAmount() << '\n';
+	for (Ingredient i : shoppingList) file << i.getName() << " " << i.getAmount() << '\n';
 	file.close();
 }
