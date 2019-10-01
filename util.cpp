@@ -2,6 +2,15 @@
 #include <cstdio>
 #include <string>
 
+void clrscr()
+{
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
 void waitEnter()
 {
     while (std::getchar() != '\n');

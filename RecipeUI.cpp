@@ -57,7 +57,7 @@ int RecipeUI::showRecipeList(bool showRecipeDetail)
             searchString = results;
 
             searchBucket = rdb.searchRecipes(results);
-            system("cls");
+            clrscr();
         }
         else
         {
@@ -79,7 +79,7 @@ int RecipeUI::showRecipeList(bool showRecipeDetail)
             }
             if (showRecipeDetail)
             {
-                system("cls");
+                clrscr();
                 searchBucket[targetRecipe - 1].printRecipe();
                 cout << " Press Enter to Continue... " << endl;
                 waitEnter();
@@ -91,7 +91,7 @@ int RecipeUI::showRecipeList(bool showRecipeDetail)
 }
 void RecipeUI::showRecipeAddForm()
 {
-    system("cls");
+    clrscr();
     cout << endl;
     cout << " ############################" << endl;
     cout << " ##                        ##" << endl;
@@ -108,7 +108,7 @@ void RecipeUI::showRecipeAddForm()
 
     if(name == "EasterEgg")
     {
-        system("cls");
+        clrscr();
         easteregg();
         waitEnter();
         return;
@@ -198,9 +198,9 @@ void RecipeUI::showRecipeEditForm()
 
 void RecipeUI::easteregg()
 {
-    cout << "Recipe UI / Main Menu Formatting : KZRT(¹æ¼®Çö)" << endl;
-    cout << "Planner UI / Modules Design / Debugging : njw1204(³ªÁ¾¿ì)" << endl; 
-    cout << "Recipe Database / Searching Engine : UCYang(¾ç¿îÃµ)" << endl;
-    cout << "Date / Escape Master : robinjoo1015(ÁÖ¿µ¼®)" << endl;
-    cout << "Report / Presentation : Joohee_Cho(Á¶ÁÖÈñ)" << endl;
+    cout << "Recipe UI / Main Menu Formatting : KZRT(ë°©ì„í˜„)" << endl;
+    cout << "Planner UI / Modules Design / Debugging : njw1204(ë‚˜ì¢…ìš°)" << endl; 
+    cout << "Recipe Database / Searching Engine : ucyang(ì–‘ìš´ì²œ)" << endl;
+    cout << "Date / Escape Master : robinjoo1015(ì£¼ì˜ì„)" << endl;
+    cout << "Report / Presentation : Joohee_Cho(ì¡°ì£¼í¬)" << endl;
 }

@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include "RecipeUI.h"
 #include "PlannerUI.h"
+#include "util.h"
 using namespace std;
 
 int main(void)
@@ -12,7 +13,7 @@ int main(void)
     
     while(1)
     {
-        system("cls");
+        clrscr();
         cout << endl;
         cout << "   8888888   8888888   888    d8P    888    888" << endl;
         cout << "     888       888     888   d8P     888    888" << endl;
@@ -50,19 +51,19 @@ int main(void)
             case 0:
                 return 0;
             case 1:
-                system("cls");
+                clrscr();
                 rui.showRecipeList();
                 break;
             case 2:
-                system("cls");
+                clrscr();
                 rui.showRecipeAddForm();
                 break;
             case 3:
-                system("cls");
+                clrscr();
                 rui.showRecipeEditForm();
                 break;
             case 4:
-                system("cls");
+                clrscr();
                 pui.showPlannerForm();
                 break;
         }

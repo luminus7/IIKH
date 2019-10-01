@@ -27,7 +27,7 @@ void PlannerUI::showPlannerForm()
 
     for (int i = 1; ; i++)
     {
-        system("cls");
+        clrscr();
         cout << endl;
         cout << " ######################" << endl;
         cout << " ##                  ##" << endl;
@@ -62,7 +62,7 @@ void PlannerUI::showPlannerForm()
 
         if (year == 0)
         {
-            system("cls");
+            clrscr();
             Plan plan;
             plan.setDates(dates);
             plan.printPlan();
@@ -100,7 +100,7 @@ void PlannerUI::makeDailyPlan(Date& date)
 
     while (true)
     {
-        system("cls");
+        clrscr();
         cout << endl;
         cout << "  Daily Plan Menu (" << date.toString() << ")" << endl;
         cout << endl;
@@ -132,14 +132,14 @@ void PlannerUI::makeDailyPlan(Date& date)
         case 1: case 2: case 3:
             mealType = selector;
 
-            system("cls");
+            clrscr();
             cout << endl;
             cout << " Pick a recipe that you want to add" << endl;
 
             id = rui.showRecipeList(false);
             if (id == -1) break;
             
-            system("cls");
+            clrscr();
             recipe = rdb.getRecipe(id);
             recipe.printRecipe();
             cout << endl;
@@ -193,7 +193,7 @@ void PlannerUI::makeDailyPlan(Date& date)
             tempDates.push_back(date);
             plan.setDates(tempDates);
 
-            system("cls");
+            clrscr();
             plan.printPlan();
             cout << endl;
             cout << " Press Enter to Continue... ";
