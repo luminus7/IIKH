@@ -61,6 +61,7 @@ void Recipe::printRecipe()
     cout << endl << endl;
 }
 
+/*
 bool Recipe::readFile(istream& in)
 {
 	string line, token;
@@ -95,3 +96,4 @@ bool Recipe::writeFile(ostream& out)
 
 	return true;
 }
+*/

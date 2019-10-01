@@ -42,6 +42,6 @@ public:
 	void setDuration(int duration) {
 		this->duration = duration;
 	}
-	bool readFile(istream& in);
-	bool writeFile(ostream& out);
+	// bool readFile(istream& in);
+	// bool writeFile(ostream& out);
 };
