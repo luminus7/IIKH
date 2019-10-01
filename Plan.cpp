@@ -30,11 +30,11 @@ void Plan::writePlanToFile(ostream& file)
 		file << d.getYear() << '/' << d.getMonth() << '/' << d.getDay() << '\n' << '\n';
 
 
-        file << "###############" << '\n';
-        file << "##           ##" << '\n';
-		file << "## Breakfast ##" << '\n';
-        file << "##           ##" << '\n';
-        file << "###############" << "\n\n";
+        file << "###################" << '\n';
+        file << '\n';
+		file << "   Breakfast   " << '\n';
+        file << '\n';
+        file << "###################" << "\n\n";
 		for (Recipe r : breakfast.getMenus()) {
             file << '<' << r.getName() << '>' << " (" << r.getDuration() << " minutes)\n";
 			for (Ingredient i : r.getIngredient()) {
@@ -55,14 +55,14 @@ void Plan::writePlanToFile(ostream& file)
             file << "\n";
 			btime += r.getDuration();
 		}
-		file << "Total Duration : " << btime << " minutes" << "\n\n\n\n";
+		file << "Total Duration : " << btime << " minutes" << "\n\n\n\n\n";
 
 
-        file << "###########" << '\n';
-        file << "##       ##" << '\n';
-		file << "## Lunch ##" << '\n';
-        file << "##       ##" << '\n';
-        file << "###########" << "\n\n";
+        file << "###################" << '\n';
+        file << '\n';
+		file << "   Lunch   " << '\n';
+        file << '\n';
+        file << "###################" << "\n\n";
 		for (Recipe r : lunch.getMenus()) {
 			file << '<' << r.getName() << '>' << " (" << r.getDuration() << " minutes)\n";
 			for (Ingredient i : r.getIngredient()) {
@@ -83,13 +83,13 @@ void Plan::writePlanToFile(ostream& file)
             file << "\n";
 			ltime += r.getDuration();
 		}
-		file << "Total Duration : " << ltime << " minutes" << "\n\n\n\n";
+		file << "Total Duration : " << ltime << " minutes" << "\n\n\n\n\n";
 
-        file << "############" << '\n';
-        file << "##        ##" << '\n';
-        file << "## Dinner ##" << '\n';
-        file << "##        ##" << '\n';
-        file << "############" << "\n\n";
+        file << "###################" << '\n';
+        file << '\n';
+        file << "   Dinner   " << '\n';
+        file << '\n';
+        file << "###################" << "\n\n";
 		for (Recipe r : dinner.getMenus()) {
             file << '<' << r.getName() << '>' << " (" << r.getDuration() << " minutes)\n";
 			for (Ingredient i : r.getIngredient()) {
@@ -113,11 +113,11 @@ void Plan::writePlanToFile(ostream& file)
 		file << "Total Duration : " << dtime << " minutes" << '\n' << '\n';
 		file << '\n';
 	}
-	file << '\n';
+	file << "\n\n";
     file << "###################" << '\n';
-    file << "##               ##" << '\n';
-	file << "## Shopping List ##" << '\n';
-    file << "##               ##" << '\n';
+    file << '\n';
+	file << "   Shopping List   " << '\n';
+    file << '\n';
     file << "###################" << "\n\n";
     for (Ingredient i : shoppingList) {
         file <<  " - " << i.getName() << " (" << i.getAmount() << "g)\n";
