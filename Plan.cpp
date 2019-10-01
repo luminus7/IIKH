@@ -32,8 +32,11 @@ void Plan::writePlanToFile(ostream& file)
 				file << " -" << i.getName() << " " << i.getAmount()*breakfast.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
                 for (int s = 0; s < shoppingList.size(); s++) {
-                    if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
-                    inshoppinglist = true;
+                    if (shoppingList[s].getName() == i.getName()) {
+                        shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
+                        inshoppinglist = true;
+                        break;
+                    }
                 }
                 if (!inshoppinglist) {
                     i.setAmount(i.getAmount() * breakfast.getPeople());
@@ -54,8 +57,11 @@ void Plan::writePlanToFile(ostream& file)
 				file << " -" << i.getName() << " " << i.getAmount()*lunch.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * lunch.getPeople());
-					inshoppinglist = true;
+                    if (shoppingList[s].getName() == i.getName()) {
+                        shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * lunch.getPeople());
+                        inshoppinglist = true;
+                        break;
+                    }
 				}
                 if (!inshoppinglist) {
                     i.setAmount(i.getAmount() * lunch.getPeople());
@@ -76,8 +82,11 @@ void Plan::writePlanToFile(ostream& file)
 				file << " -" << i.getName() << " " << i.getAmount()*dinner.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
 				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * dinner.getPeople());
-					inshoppinglist = true;
+                    if (shoppingList[s].getName() == i.getName()) {
+                        shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * dinner.getPeople());
+                        inshoppinglist = true;
+                        break;
+                    }
 				}
                 if (!inshoppinglist) {
                     i.setAmount(i.getAmount() * dinner.getPeople());
