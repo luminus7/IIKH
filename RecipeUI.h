@@ -16,11 +16,10 @@ class RecipeUI
 private:
     const string seperator = "**************************";
     RecipeDatabase& rdb;
-    void printRecipe(Recipe r);
     void easteregg();
 
 public:
-    int showRecipeList();
+    int showRecipeList(bool showRecipeDetail = true);
     void showRecipeAddForm();
     void showRecipeEditForm();
     RecipeUI(RecipeDatabase& rdb) : rdb(rdb) {

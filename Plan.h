@@ -1,17 +1,19 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <iostream>
 #include "Date.h"
 
 class Plan {
 private:
-    vector<Date> dates;
+    std::vector<Date> dates;
 
 public:
     Plan() {}
-    Plan(vector<Date> dates) { this->dates = dates; }
-    void setDates(vector<Date> dates) { this->dates = dates; }
-    vector<Date>& getDates() { return dates; }
+    Plan(std::vector<Date> dates) { this->dates = dates; }
+    void setDates(std::vector<Date> dates) { this->dates = dates; }
+    std::vector<Date>& getDates() { return dates; }
     void printPlan();
-    void writePlanToFile(string filename);
+    void writePlanToFile(std::ostream& file);
+    void writePlanToFile(std::string filename);
 };

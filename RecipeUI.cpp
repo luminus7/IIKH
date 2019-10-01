@@ -1,43 +1,10 @@
 #include "RecipeUI.h"
+#include "Recipe.h"
 #include "util.h"
 #include <cstdlib>
 using namespace std;
 
-void RecipeUI::printRecipe(Recipe r)
-{
-    system("cls");
-    cout << endl;
-    cout << " #############################" << endl;
-    cout << " ##                         ##" << endl;
-    cout << " ##     Selected Recipe     ##" << endl;
-    cout << " ##                         ##" << endl;
-    cout << " #############################" << endl;
-    cout << endl;
-
-    cout << " Name : " << r.getName() << endl;
-    cout << " Cooking Time : " << r.getDuration() << " minutes" << endl;
-
-    if (r.getIngredient().size())
-    {
-        cout << endl;
-        cout << " <Ingredients List>" << endl;
-        for (int i = 0; i < r.getIngredient().size(); i++)
-        {
-            cout << " " << i + 1 << ". " << r.getIngredient()[i].getName() << " (" << r.getIngredient()[i].getAmount() << "g)" << endl;
-        }
-    }
-
-    if (r.getDescription().size())
-    {
-        string formattedDescription = ReplaceAll(r.getDescription(), "\n", "\n > ");
-        cout << endl;
-        cout << " <How to Cook>" << formattedDescription;
-    }
-
-    cout << endl << endl;
-}
-
-int RecipeUI::showRecipeList()
+int RecipeUI::showRecipeList(bool showRecipeDetail)
 {
     if (rdb.getRecipesList().empty())
     {
@@ -88,6 +55,7 @@ int RecipeUI::showRecipeList()
             vector<string> results(tempSearchIter, token);
 
             searchString = results;
+
             searchBucket = rdb.searchRecipes(results);
             system("cls");
         }
@@ -109,9 +77,13 @@ int RecipeUI::showRecipeList()
                     if (targetRecipe == 0) return -1;
                 }
             }
-            printRecipe(searchBucket[targetRecipe - 1]);
-            cout << " Press Enter to Continue... " << endl;
-            waitEnter();
+            if (showRecipeDetail)
+            {
+                system("cls");
+                searchBucket[targetRecipe - 1].printRecipe();
+                cout << " Press Enter to Continue... " << endl;
+                waitEnter();
+            }
             return searchBucket[targetRecipe - 1].getId();
         }
     }

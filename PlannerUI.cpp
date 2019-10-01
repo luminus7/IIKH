@@ -48,10 +48,10 @@ void PlannerUI::showPlannerForm()
         cout << endl;
         cout << endl;
         cout << " [Day " << i << "]" << endl;
-        cout << " Date (yyyy mm dd) (Input -1 to save & print a file) : ";
+        cout << " Date (yyyy mm dd) (Input 0 to save & print a file) : ";
         cin >> year;
 
-        if (year == -1)
+        if (year == 0)
         {
             system("cls");
             Plan plan;
@@ -112,9 +112,9 @@ void PlannerUI::makeDailyPlan(Date& date)
         cin >> selector;
         cin.ignore(INT_MAX, '\n');
 
-        int mealType;
+        int mealType, id;
+        string input;
         Recipe recipe(-1);
-        
         switch (selector)
         {
         case 0:
@@ -126,9 +126,19 @@ void PlannerUI::makeDailyPlan(Date& date)
             system("cls");
             cout << endl;
             cout << " Pick a recipe that you want to add" << endl;
-            cout << endl;
 
-            recipe = rdb.getRecipe(rui.showRecipeList());
+            id = rui.showRecipeList(false);
+            if (id == -1) break;
+            
+            system("cls");
+            recipe = rdb.getRecipe(id);
+            recipe.printRecipe();
+            cout << endl;
+            cout << " Do you really want to use this recipe? (Y/N) : ";
+            cin >> input;
+
+            if (input != "Y" && input != "y") break;
+
             switch (mealType)
             {
             case 1:
@@ -141,6 +151,11 @@ void PlannerUI::makeDailyPlan(Date& date)
                 date.getDinner().addMenu(recipe);
             }
 
+            cin.ignore(INT_MAX, '\n');
+            cout << endl;
+            cout << " Commited." << endl;
+            cout << " Press Enter to Continue... ";
+            waitEnter();
             break;
 
         case 4:

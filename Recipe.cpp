@@ -1,5 +1,8 @@
+#include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "Recipe.h"
+#include "util.h"
 using namespace std;
 
 void Recipe::addIngredient(Ingredient ingredient)
@@ -23,4 +26,37 @@ bool Recipe::removeIngredient(string name)
 		}
 	}
 	return false;
+}
+
+void Recipe::printRecipe()
+{
+    cout << endl;
+    cout << " #############################" << endl;
+    cout << " ##                         ##" << endl;
+    cout << " ##     Selected Recipe     ##" << endl;
+    cout << " ##                         ##" << endl;
+    cout << " #############################" << endl;
+    cout << endl;
+
+    cout << " Name : " << getName() << endl;
+    cout << " Cooking Time : " << getDuration() << " minutes" << endl;
+
+    if (getIngredient().size())
+    {
+        cout << endl;
+        cout << " <Ingredients List>" << endl;
+        for (int i = 0; i < getIngredient().size(); i++)
+        {
+            cout << " " << i + 1 << ". " << getIngredient()[i].getName() << " (" << getIngredient()[i].getAmount() << "g)" << endl;
+        }
+    }
+
+    if (getDescription().size())
+    {
+        string formattedDescription = ReplaceAll(getDescription(), "\n", "\n > ");
+        cout << endl;
+        cout << " <How to Cook>" << formattedDescription;
+    }
+
+    cout << endl << endl;
 }

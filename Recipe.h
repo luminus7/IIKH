@@ -16,6 +16,7 @@ public:
 	Recipe(int id) { this->id = id; }
 	void addIngredient(Ingredient ingredient);
 	bool removeIngredient(string name);
+    void printRecipe();
 	int getId() {
 		return id;
 	}

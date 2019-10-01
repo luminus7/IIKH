@@ -6,80 +6,20 @@ using namespace std;
 
 void Plan::printPlan()
 {
-	vector<Ingredient> shoppingList;
-	for (Date d : dates) {
-		int btime = 0, ltime = 0, dtime = 0;
-		Meal breakfast = d.getBreakfast(), lunch = d.getLunch(), dinner = d.getDinner();
-		cout << d.getYear() << '/' << d.getMonth() << '/' << d.getDay() << '\n' << '\n';
-		cout << "*******BREAKFAST*******" << '\n' << '\n';
-		for (Recipe r : breakfast.getMenus()) {
-			cout << '<' << r.getName() << '>' << '\n';
-			cout << "Ingredients" << '\n';
-			for (Ingredient i : r.getIngredient()) {
-				cout << " -" << i.getName() << " " << i.getAmount()*breakfast.getPeople() << "g" << '\n';
-				bool inshoppinglist = false;
-				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
-					inshoppinglist = true;
-				}
-				if (!inshoppinglist) shoppingList.push_back(i);
-			}
-			cout << "Description" << '\n';
-			cout << " " << r.getDescription() << '\n';
-			cout << "Duration : " << r.getDuration() << "minutes" << '\n' << '\n';
-			btime += r.getDuration();
-		}
-		cout << "Total Duration : " << btime << "minutes" << '\n' << '\n';
-		cout << "*******LUNCH*******" << '\n' << '\n';
-		for (Recipe r : lunch.getMenus()) {
-			cout << '<' << r.getName() << '>' << '\n';
-			cout << "Ingredients" << '\n';
-			for (Ingredient i : r.getIngredient()) {
-				cout << " -" << i.getName() << " " << i.getAmount()*lunch.getPeople() << "g" << '\n';
-				bool inshoppinglist = false;
-				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * lunch.getPeople());
-					inshoppinglist = true;
-				}
-				if (!inshoppinglist) shoppingList.push_back(i);
-			}
-			cout << "Description" << '\n';
-			cout << " " << r.getDescription() << '\n';
-			cout << "Duration : " << r.getDuration() << "minutes" << '\n' << '\n';
-			ltime += r.getDuration();
-		}
-		cout << "Total Duration : " << ltime << "minutes" << '\n' << '\n';
-		cout << "*******DINNER*******" << '\n' << '\n';
-		for (Recipe r : dinner.getMenus()) {
-			cout << '<' << r.getName() << '>' << '\n';
-			cout << "Ingredients" << '\n';
-			for (Ingredient i : r.getIngredient()) {
-				cout << " -" << i.getName() << " " << i.getAmount() * dinner.getPeople() << "g" << '\n';
-				bool inshoppinglist = false;
-				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * dinner.getPeople());
-					inshoppinglist = true;
-				}
-				if (!inshoppinglist) shoppingList.push_back(i);
-			}
-			cout << "Description" << '\n';
-			cout << " " << r.getDescription() << '\n';
-			cout << "Duration : " << r.getDuration() << "minutes" << '\n' << '\n';
-			dtime += r.getDuration();
-		}
-		cout << "Total Duration : " << dtime << "minutes" << '\n' << '\n';
-		cout << '\n';
-	}
-	cout << '\n';
-	cout << "*******SHOPPING LIST*******" << '\n';
-	for (Ingredient i : shoppingList) cout << i.getName() << " " << i.getAmount() << '\n';
+    writePlanToFile(cout);
 }
 
 void Plan::writePlanToFile(string filename)
 {
-	vector<Ingredient> shoppingList;
-	ofstream file;
-	file.open((filename + ".txt").c_str());
+    ofstream file;
+    file.open(filename);
+    writePlanToFile(file);
+    file.close();
+}
+
+void Plan::writePlanToFile(ostream& file)
+{
+    vector<Ingredient> shoppingList;
 	for (Date d : dates) {
 		int btime = 0, ltime = 0, dtime = 0;
 		Meal breakfast = d.getBreakfast(), lunch = d.getLunch(), dinner = d.getDinner();
@@ -91,11 +31,14 @@ void Plan::writePlanToFile(string filename)
 			for (Ingredient i : r.getIngredient()) {
 				file << " -" << i.getName() << " " << i.getAmount()*breakfast.getPeople() << "g" << '\n';
 				bool inshoppinglist = false;
-				for (int s = 0; s < shoppingList.size(); s++) {
-					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
-					inshoppinglist = true;
-				}
-				if (!inshoppinglist) shoppingList.push_back(i);
+                for (int s = 0; s < shoppingList.size(); s++) {
+                    if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * breakfast.getPeople());
+                    inshoppinglist = true;
+                }
+                if (!inshoppinglist) {
+                    i.setAmount(i.getAmount() * breakfast.getPeople());
+                    shoppingList.push_back(i);
+                }
 			}
 			file << "Description" << '\n';
 			file << " " << r.getDescription() << '\n';
@@ -114,7 +57,10 @@ void Plan::writePlanToFile(string filename)
 					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * lunch.getPeople());
 					inshoppinglist = true;
 				}
-				if (!inshoppinglist) shoppingList.push_back(i);
+                if (!inshoppinglist) {
+                    i.setAmount(i.getAmount() * lunch.getPeople());
+                    shoppingList.push_back(i);
+                }
 			}
 			file << "Description" << '\n';
 			file << " " << r.getDescription() << '\n';
@@ -133,7 +79,10 @@ void Plan::writePlanToFile(string filename)
 					if (shoppingList[s].getName() == i.getName()) shoppingList[s].setAmount(shoppingList[s].getAmount() + i.getAmount() * dinner.getPeople());
 					inshoppinglist = true;
 				}
-				if (!inshoppinglist) shoppingList.push_back(i);
+                if (!inshoppinglist) {
+                    i.setAmount(i.getAmount() * dinner.getPeople());
+                    shoppingList.push_back(i);
+                }
 			}
 			file << "Description" << '\n';
 			file << " " << r.getDescription() << '\n';
@@ -146,5 +95,4 @@ void Plan::writePlanToFile(string filename)
 	file << '\n';
 	file << "*******SHOPPING LIST*******" << '\n';
 	for (Ingredient i : shoppingList) file << i.getName() << " " << i.getAmount() << '\n';
-	file.close();
 }
