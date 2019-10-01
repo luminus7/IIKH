@@ -1,24 +1,40 @@
 #include "RecipeUI.h"
 #include "util.h"
+#include <cstdlib>
 using namespace std;
 
 void RecipeUI::printRecipe(Recipe r)
 {
-    cout << seperator << endl;
-    cout << "Selected Recipe" << endl;
-    cout << seperator << endl;
-
-    cout << "Name : " << r.getName() << endl;
-    cout << "Expected Cooking Time : " << r.getDuration() << endl;
-    cout << "Ingredients List : " << endl;
-    for(int i=0; i<r.getIngredient().size(); i++)
-    {
-        cout << i+1 << ". " << r.getIngredient()[i].getName() << " : " << r.getIngredient()[i].getAmount() << endl;
-    }
+    system("cls");
     cout << endl;
-    cout << "How to Cook : " << endl;
-    cout << r.getDescription();
-    
+    cout << " #############################" << endl;
+    cout << " ##                         ##" << endl;
+    cout << " ##     Selected Recipe     ##" << endl;
+    cout << " ##                         ##" << endl;
+    cout << " #############################" << endl;
+    cout << endl;
+
+    cout << " Name : " << r.getName() << endl;
+    cout << " Cooking Time : " << r.getDuration() << " minutes" << endl;
+
+    if (r.getIngredient().size())
+    {
+        cout << endl;
+        cout << " <Ingredients List>" << endl;
+        for (int i = 0; i < r.getIngredient().size(); i++)
+        {
+            cout << " " << i + 1 << ". " << r.getIngredient()[i].getName() << " (" << r.getIngredient()[i].getAmount() << "g)" << endl;
+        }
+    }
+
+    if (r.getDescription().size())
+    {
+        string formattedDescription = ReplaceAll(r.getDescription(), "\n", "\n > ");
+        cout << endl;
+        cout << " <How to Cook>" << formattedDescription;
+    }
+
+    cout << endl << endl;
 }
 
 int RecipeUI::showRecipeList()
@@ -38,77 +54,101 @@ int RecipeUI::showRecipeList()
     vector<Recipe> searchBucket = rdb.getRecipesList();
     while(1)
     {
-        cout << seperator << endl;
-        cout << "Recipe List" << endl;
-        cout << seperator << endl;
+        cout << endl;
+        cout << " ############################" << endl;
+        cout << " ##                        ##" << endl;
+        cout << " ##       Recipe List      ##" << endl;
+        cout << " ##                        ##" << endl;
+        cout << " ############################" << endl;
+        cout << endl;
     
         int i = 0;
         for(i = 0; i < searchBucket.size(); i++)
         {
-            cout << (i+1) << ". " << searchBucket[i].getName() << endl;
+            cout << "  " << (i+1) << ". " << searchBucket[i].getName() << endl;
         }
-        cout << seperator << endl;
-        cout << "To stop Search, input 0" << endl;
-        cout << "Keyword Search : ";
-        string tempSearchSave;
-        getline(cin, tempSearchSave);
-        if(tempSearchSave == "0")
+        
+        cout << endl;
+        cout << " ############################" << endl;
+        cout << endl;
+        cout << " Want to start new search? (Y/N) : ";
+        string ynSelect;
+        cin >> ynSelect;
+        cin.ignore(INT_MAX, '\n');
+
+        if (ynSelect == "y" || ynSelect == "Y")
         {
-            cout << "Which Recipe do you want to choose? (0 to Exit) : ";
+            cout << " Search keywords : ";
+            string tempSearchSave;
+            getline(cin, tempSearchSave);
+
+            stringstream tempSearchStream(tempSearchSave);
+            istream_iterator<string> tempSearchIter(tempSearchStream);
+            istream_iterator<string> token;
+            vector<string> results(tempSearchIter, token);
+
+            searchString = results;
+            searchBucket = rdb.searchRecipes(results);
+            system("cls");
+        }
+        else
+        {
+            cout << " Which Recipe do you want to choose? (0 to Cancel) : ";
             int targetRecipe;
             cin >> targetRecipe;
-            if(targetRecipe == 0) return -1;
-            if(targetRecipe > searchBucket.size())
+            cin.ignore(INT_MAX, '\n');
+            if (targetRecipe == 0) return -1;
+            if (targetRecipe > searchBucket.size())
             {
-                while(targetRecipe > searchBucket.size())
+                while (targetRecipe > searchBucket.size())
                 {
-                    cout << "Number should be lower then " << searchBucket.size() << endl;
-                    cout << "Which Recipe do you want to choose? (0 to Exit) : ";
+                    cout << " Invalid Number!" << endl << endl;
+                    cout << " Which Recipe do you want to choose? (0 to Cancel) : ";
                     cin >> targetRecipe;
-                    if(targetRecipe == 0) return -1;
+                    cin.ignore(INT_MAX, '\n');
+                    if (targetRecipe == 0) return -1;
                 }
             }
-            cin.ignore(INT_MAX, '\n');
-            printRecipe(searchBucket[i - 1]);
-            cout << "Enter to Continue : " << endl;
-            string dummy;
-            getline(cin, dummy);
-            return searchBucket[i - 1].getId();
+            printRecipe(searchBucket[targetRecipe - 1]);
+            cout << " Press Enter to Continue... " << endl;
+            waitEnter();
+            return searchBucket[targetRecipe - 1].getId();
         }
-        
-        stringstream tempSearchStream(tempSearchSave);
-        istream_iterator<string> tempSearchIter(tempSearchStream);
-        istream_iterator<string> token;
-        vector<string> results(tempSearchIter, token);
-        
-        searchString = results;
-        searchBucket = rdb.searchRecipes(results);
-        system("cls");
     }
     
 }
 void RecipeUI::showRecipeAddForm()
 {
-    cout << seperator << endl;
-    cout << "Recipe Add" << endl;
-    cout << seperator << endl;
+    system("cls");
+    cout << endl;
+    cout << " ############################" << endl;
+    cout << " ##                        ##" << endl;
+    cout << " ##       Recipe Form      ##" << endl;
+    cout << " ##                        ##" << endl;
+    cout << " ############################" << endl;
+    cout << endl;
     
-    cout << "Enter a Name of Recipe : ";
+    cout << " Recipe name : ";
     string name;
     cin >> name;
+    cout << endl;
+    cin.ignore(INT_MAX, '\n');
 
     if(name == "EasterEgg")
     {
         system("cls");
         easteregg();
+        waitEnter();
+        return;
     }
+
     vector<Ingredient> ingredients;
 
     for (int idx = 1; ; idx++) {
         string tempIngName;
         int tempIngAmount;
 
-        cout << "Enter Ingredient #" << idx << " name (0 to exit) : ";
+        cout << " Ingredient #" << idx << " name (0 to exit) : ";
         cin >> tempIngName;
 
         if (tempIngName == "0")
@@ -116,13 +156,15 @@ void RecipeUI::showRecipeAddForm()
 
         while (true)
         {
-            cout << "Enter Ingredient #" << idx << " amount : ";
+            cout << " Ingredient #" << idx << " amount : ";
             cin >> tempIngAmount;
             if (!cin.fail())
                 break;
             cin.clear();
-            cin.ignore();
+            cin.ignore(INT_MAX, '\n');
         }
+
+        cout << endl;
 
         Ingredient tempIng;
         tempIng.setName(tempIngName);
@@ -130,27 +172,31 @@ void RecipeUI::showRecipeAddForm()
         ingredients.push_back(tempIng);
     }
     
-    
-
+    cout << endl;
     cin.ignore(INT_MAX, '\n');
     
     string recipeDescription;
     string tempDescriptionSave = "a";
-    while(tempDescriptionSave.size() != 0)
+
+    cout << " Describe \"How to Cook?\"" << endl << " (If you finish writing, Press Enter Twice.)" << endl << endl;
+    while (true)
     {
-        cout << "Enter Descriptions (Enter to Exit): ";
+        cout << " > ";
         getline(cin, tempDescriptionSave);
-        recipeDescription += tempDescriptionSave + "\n";
+        if (tempDescriptionSave.empty()) break;
+        recipeDescription += "\n" + tempDescriptionSave;
     }
+    cout << endl;
+
     int tempDuration;
     while (true)
     {
-        cout << "Enter Duration : ";
+        cout << " Cooking Time Duration : ";
         cin >> tempDuration;
         if (!cin.fail())
             break;
         cin.clear();
-        cin.ignore();
+        cin.ignore(INT_MAX, '\n');
     }
     cin.ignore(INT_MAX, '\n');
     rdb.addRecipe(name, ingredients, recipeDescription, tempDuration);
@@ -168,43 +214,20 @@ void RecipeUI::showRecipeEditForm()
         waitEnter();
         return;
     }
-
-    cout << seperator << endl;
-    cout << "Recipe Edit" << endl;
-    cout << seperator << endl;
-
-    vector<Recipe> allRecipeList = rdb.getRecipesList();
-    for(int i=0; i<allRecipeList.size();i++)
-    {
-        cout << (i+1) << ". " << allRecipeList[i].getName() << endl;
-    }
     
-    cout << "Select Number for Edit (0 to Exit) : ";
-    int recipeNumber;
-    cin >> recipeNumber;
-    cin.ignore(INT_MAX, '\n');
-    Recipe targetRecipe = allRecipeList[recipeNumber - 1];
-    printRecipe(targetRecipe);
-    
-    cout << "Do you really want to Delete / Recreate this (1 to Continue) : ";
-    int tempCheck;
-    cin >> tempCheck;
-    if (tempCheck != 1) return;
-    if (rdb.removeRecipe(targetRecipe.getId()))
-    {
-        cout << "Removed Successfully, continue to Add? (1 to Continue) : " << endl;
-        cin >> tempCheck;
-        if (tempCheck != 1) return;
-        showRecipeAddForm();
-    }
-    else cout <<"양운천 잘못임 제 잘못 아님";
+    int selectedRecipeId = showRecipeList();
+
+    if (selectedRecipeId == -1) return;
+
+    rdb.removeRecipe(selectedRecipeId);
+    showRecipeAddForm();
 }
 
 
 void RecipeUI::easteregg()
 {
     cout << "Recipe UI / Main Menu Formatting : KZRT(방석현)" << endl;
-    cout << "Planner UI / Debugging : njw1204(나종우)" << endl; 
+    cout << "Planner UI / Modules Design / Debugging : njw1204(나종우)" << endl; 
     cout << "Recipe Database / Searching Engine : UCYang(양운천)" << endl;
     cout << "Date / Escape Master : robinjoo1015(주영석)" << endl;
     cout << "Report / Presentation : Joohee_Cho(조주희)" << endl;

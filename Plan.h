@@ -10,8 +10,8 @@ private:
 public:
     Plan() {}
     Plan(vector<Date> dates) { this->dates = dates; }
-    void setDates(vector<Date> plan) { this->dates = dates; }
-    vector<Date> getDates() { return dates; }
+    void setDates(vector<Date> dates) { this->dates = dates; }
+    vector<Date>& getDates() { return dates; }
     void printPlan();
     void writePlanToFile(string filename);
 };

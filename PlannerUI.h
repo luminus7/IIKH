@@ -7,6 +7,7 @@ using namespace std;
 class PlannerUI {
 private:
     RecipeDatabase& rdb;
+    void makeDailyPlan(Date& date);
 
 public:
     PlannerUI(RecipeDatabase& rdb) : rdb(rdb) {}

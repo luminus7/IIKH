@@ -1,4 +1,5 @@
 #include "Date.h"
+#include <string>
 using namespace std;
 
 bool Date::init(int year, int month, int day)
@@ -59,4 +60,9 @@ Date Date::getTomorrow() {
 
 bool Date::compareTime(Date& date) {
     return (this->year == date.getYear() && this->month == date.getMonth() && this->day == date.getDay());
+}
+
+string Date::toString() {
+    string dateStr = to_string(year) + "/" + to_string(month) + "/" + to_string(day);
+    return dateStr;
 }

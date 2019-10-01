@@ -9,6 +9,9 @@ private:
     int people;
 
 public:
+    Meal() : people(1) {}
+    Meal(int people) : people(people) {}
+
     void addMenu(Recipe recipe);
     bool removeMenu(int id);
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Meal.h"
+#include <string>
 
 class Date {
 private:
@@ -14,9 +15,10 @@ public:
     int getYear() { return year; }
     int getMonth() { return month; }
     int getDay() { return day; }
-    Meal getBreakfast() { return breakfast; }
-    Meal getLunch() { return lunch; }
-    Meal getDinner() { return dinner; }
+    Meal& getBreakfast() { return breakfast; }
+    Meal& getLunch() { return lunch; }
+    Meal& getDinner() { return dinner; }
     Date getTomorrow();
     bool compareTime(Date& date);
+    std::string toString();
 };

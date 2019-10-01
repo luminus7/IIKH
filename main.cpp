@@ -34,7 +34,7 @@ int main(void)
         cout << "       ##  1. Show/Search Recipe List   ##" << endl;
         cout << "       ##  2. Add Recipe                ##" << endl;
         cout << "       ##  3. Edit Recipe               ##" << endl;
-        cout << "       ##  4. Make Meal Plan            ##" << endl;
+        cout << "       ##  4. Make your Meal Plan       ##" << endl;
         cout << "       ##  0. Exit                      ##" << endl;
         cout << "       ##                               ##" << endl;
         cout << "       ###################################" << endl;
