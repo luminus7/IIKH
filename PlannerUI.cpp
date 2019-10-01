@@ -57,7 +57,7 @@ void PlannerUI::showPlannerForm()
             Plan plan;
             plan.setDates(dates);
             plan.printPlan();
-            plan.writePlanToFile("plan");
+            plan.writePlanToFile("plan.txt");
 
             cin.ignore(INT_MAX, '\n');
             cout << endl;
