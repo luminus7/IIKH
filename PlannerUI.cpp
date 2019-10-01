@@ -34,6 +34,9 @@ void PlannerUI::showPlannerForm()
         cout << " ##   Meal Planner   ##" << endl;
         cout << " ##                  ##" << endl;
         cout << " ######################" << endl;
+        cout << endl;
+
+        cout << " (Input 0 to save & print a file)" << endl;
 
         for (int j = 1; j < i; j++) {
             cout << endl;
@@ -48,7 +51,7 @@ void PlannerUI::showPlannerForm()
         cout << endl;
         cout << endl;
         cout << " [Day " << i << "]" << endl;
-        cout << " Date (yyyy mm dd) (Input 0 to save & print a file) : ";
+        cout << " Date (yyyy mm dd) : ";
         cin >> year;
 
         if (year == 0)
@@ -60,7 +63,7 @@ void PlannerUI::showPlannerForm()
             plan.writePlanToFile("plan.txt");
 
             cin.ignore(INT_MAX, '\n');
-            cout << endl;
+            cout << endl << endl;
             cout << " Success! Write the plan to \"plan.txt\". Check the file." << endl;
             cout << " Press Enter to Continue... ";
             waitEnter();
