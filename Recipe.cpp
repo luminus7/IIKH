@@ -66,16 +66,16 @@ bool Recipe::readFile(istream& in)
 	string token;
 	Ingredient ingred;
 
+	getline(in, token, ';');
 	if (in.eof())
 		return false;
-
-	getline(in, token, ';');
 	id = stoi(token);
 	getline(in, token, ';');
 	duration = stoi(token);
 	getline(in, name, ';');
 	getline(in, description, ';');
 
+	ingredientList.clear();
 	while (ingred.readFile(in))
 		ingredientList.emplace_back(ingred);
 

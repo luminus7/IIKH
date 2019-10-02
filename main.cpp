@@ -10,6 +10,8 @@ int main(void)
     RecipeDatabase rdb;
     RecipeUI rui(rdb);
     PlannerUI pui(rdb);
+
+	rdb.readFile("data.db");
     
     while(1)
     {
@@ -49,6 +51,8 @@ int main(void)
         switch(selector)
         {
             case 0:
+				if (!rdb.writeFile("data.db"))
+					return 0x1;
                 return 0;
             case 1:
                 clrscr();

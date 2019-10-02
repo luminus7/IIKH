@@ -96,6 +96,7 @@ bool RecipeDatabase::readFile(const string& filename)
     getline(fin, s);
     auto_inc_id = stoi(s);
     
+	recipes.clear();
     while (recipe.readFile(fin))
         recipes.emplace_back(recipe);
 
